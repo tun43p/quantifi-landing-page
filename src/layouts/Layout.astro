@@ -1,4 +1,6 @@
 ---
+import Config from "@config";
+
 interface Props {
   title: string;
 }
@@ -14,30 +16,32 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <title>{Config.title} - {title}</title>
   </head>
   <body>
-    <slot />
+    <header>
+      <div class="date">
+        <!-- TODO: Add real date of today -->
+        <p>Wednesday 18 July, 2024</p>
+        <p>20:31:02 UTC</p>
+      </div>
+      <nav>
+        <a href={Config.twitter} target="_blank">JOIN US</a>
+      </nav>
+    </header>
+    <main><slot /></main>
+    <footer>
+      <p>Copyright © 2024 QuantiFi</p>
+    </footer>
   </body>
 </html>
+
 <style is:global>
-  :root {
-    --accent: 136, 58, 234;
-    --accent-light: 224, 204, 250;
-    --accent-dark: 49, 10, 101;
-    --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent)),
-      rgb(var(--accent-light)) 30%,
-      white 60%
-    );
-  }
-  html {
-    font-family: system-ui, sans-serif;
-    background: #13151a;
-    background-size: 224px;
-  }
-  code {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
     font-family:
       Menlo,
       Monaco,
@@ -47,5 +51,51 @@ const { title } = Astro.props;
       Bitstream Vera Sans Mono,
       Courier New,
       monospace;
+  }
+
+  html {
+    color: white;
+    background: black;
+    width: 100%;
+    height: 100vh;
+    font-size: 16px;
+  }
+
+  body {
+    padding: 2rem;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      /* TODO: Check if we want another animation */
+      text-decoration: underline;
+    }
+  }
+
+  main {
+    padding: 2rem;
+    height: calc(100vh - 8rem);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 2rem;
+
+    .date {
+      font-size: 0.75rem;
+    }
+  }
+
+  footer {
+    font-size: 0.75rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>
