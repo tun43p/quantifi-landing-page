@@ -4,10 +4,6 @@ export default class Config {
   }
 
   static get twitter(): string {
-    return "https://x.com/databot_xyz";
-  }
-
-  static get launchDate(): Date | null {
-    return null;
+    return "https://x.com/quantifi_xyz";
   }
 }

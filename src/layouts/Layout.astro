@@ -1,5 +1,7 @@
 ---
 import Config from "@config";
+import Header from "@components/header.astro";
+import Footer from "@components/footer.astro";
 
 interface Props {
   title: string;
@@ -19,20 +21,9 @@ const { title } = Astro.props;
     <title>{Config.title} - {title}</title>
   </head>
   <body>
-    <header>
-      <div class="date">
-        <!-- TODO: Add real date of today -->
-        <p>Wednesday 18 July, 2024</p>
-        <p>20:31:02 UTC</p>
-      </div>
-      <nav>
-        <a href={Config.twitter} target="_blank">JOIN US</a>
-      </nav>
-    </header>
-    <main><slot /></main>
-    <footer>
-      <p>Copyright © 2024 QuantiFi</p>
-    </footer>
+    <Header />
+    <slot />
+    <Footer />
   </body>
 </html>
 
@@ -70,32 +61,7 @@ const { title } = Astro.props;
     text-decoration: none;
 
     &:hover {
-      /* TODO: Check if we want another animation */
       text-decoration: underline;
     }
-  }
-
-  main {
-    padding: 2rem;
-    height: calc(100vh - 8rem);
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 2rem;
-
-    .date {
-      font-size: 0.75rem;
-    }
-  }
-
-  footer {
-    font-size: 0.75rem;
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 </style>
