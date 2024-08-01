@@ -3,7 +3,10 @@ import Config from "@config";
 ---
 
 <footer>
-  <p>Copyright © 2024 {Config.title}</p>
+  <div>
+    <p>Copyright © 2024 {Config.title}</p>
+    <a href="/old">Go to old version</a>
+  </div>
 </footer>
 
 <style>
@@ -13,5 +16,9 @@ import Config from "@config";
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  footer div {
+    text-align: center;
   }
 </style>
