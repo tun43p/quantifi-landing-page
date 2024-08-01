@@ -1,5 +1,7 @@
 # QuantiFi Landing Page
 
+![QuantiFi Landing Page](./docs/demo.png)
+
 ## Table of contents
 
 - [QuantiFi Landing Page](#quantifi-landing-page)
