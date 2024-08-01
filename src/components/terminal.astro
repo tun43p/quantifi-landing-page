@@ -1,15 +1,14 @@
 ---
 interface Props {
   contents: TerminalContent[];
-  hasSlot?: boolean;
 }
 
-const { contents, hasSlot } = Astro.props;
+const { contents } = Astro.props;
 ---
 
 <div class="terminal">
   {
-    hasSlot && (
+    Astro.slots.has("default") && (
       <aside class="terminal-aside">
         <slot />
       </aside>
@@ -35,6 +34,7 @@ const { contents, hasSlot } = Astro.props;
   .terminal-aside {
     height: 18rem;
     margin-bottom: 2rem;
+    /* TODO: Display none? */
     visibility: hidden;
   }
 
