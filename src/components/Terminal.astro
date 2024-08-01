@@ -133,7 +133,7 @@ const { contents } = Astro.props;
       }
     });
 
-    // If all the text contents have been typed, stop the typing animation
+    // If all the text contents have been typed, show the aside component
     const i3 = setInterval(() => {
       const lastText = texts[texts.length - 1];
       const lastValue = lastText?.getAttribute("aria-value");
