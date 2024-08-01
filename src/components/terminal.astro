@@ -1,28 +1,44 @@
 ---
 interface Props {
   contents: TerminalContent[];
+  hasSlot?: boolean;
 }
 
-const { contents } = Astro.props;
+const { contents, hasSlot } = Astro.props;
 ---
 
-<div>
+<div class="terminal">
   {
-    contents.map((content: TerminalContent, index: number) => (
-      <div class="container">
-        <p
-          class="text"
-          aria-index={index}
-          aria-value={content.text}
-          aria-symbol={content.symbol}
-        />
-      </div>
-    ))
+    hasSlot && (
+      <aside class="terminal-aside">
+        <slot />
+      </aside>
+    )
   }
+  <section class="terminal-section">
+    {
+      contents.map((content: TerminalContent, index: number) => (
+        <div class="terminal-line">
+          <p
+            class="terminal-text"
+            aria-index={index}
+            aria-value={content.text}
+            aria-symbol={content.symbol}
+          />
+        </div>
+      ))
+    }
+  </section>
 </div>
 
 <style>
-  .container {
+  .terminal-aside {
+    height: 18rem;
+    margin-bottom: 2rem;
+    visibility: hidden;
+  }
+
+  .terminal-line {
     display: flex;
     align-items: center;
   }
@@ -30,12 +46,13 @@ const { contents } = Astro.props;
 
 <script>
   (() => {
-    const texts = document.querySelectorAll("p.text");
+    const texts = document.querySelectorAll("p.terminal-text");
 
     if (!texts) return;
 
     texts.forEach((text) => {
       const index = parseInt(text.getAttribute("aria-index") ?? "0");
+
       const value = text.getAttribute("aria-value");
       const symbol = text.getAttribute("aria-symbol");
 
@@ -46,6 +63,7 @@ const { contents } = Astro.props;
       let seed = 0;
       let speed = 50;
 
+      // Function to type the text content of the terminal with a random speed
       const type = () => {
         if (i < value.length) {
           text.textContent += value.charAt(i);
@@ -60,11 +78,13 @@ const { contents } = Astro.props;
         }
       };
 
+      // If the text is the first one, type it immediately
       if (index === 0) {
         type();
         return;
       }
 
+      // If the text is not the first one, wait for the previous text to finish typing
       const i1 = setInterval(() => {
         const previousText = texts[index - 1];
         const previousValue = previousText?.getAttribute("aria-value");
@@ -80,6 +100,7 @@ const { contents } = Astro.props;
         }
       }, speed);
 
+      // If the text has a symbol, add it to the text content
       if (symbol) {
         const symbolText = document.createElement("span");
         text.parentElement?.appendChild(symbolText);
@@ -94,6 +115,8 @@ const { contents } = Astro.props;
                   symbolText.textContent += ".";
                 }
               } else if (symbol === "/") {
+                symbolText.style.marginLeft = "0.5rem";
+
                 if (symbolText.textContent === "/") {
                   symbolText.textContent = "|";
                 } else if (symbolText.textContent === "|") {
@@ -109,5 +132,25 @@ const { contents } = Astro.props;
         });
       }
     });
+
+    // If all the text contents have been typed, stop the typing animation
+    const i3 = setInterval(() => {
+      const lastText = texts[texts.length - 1];
+      const lastValue = lastText?.getAttribute("aria-value");
+
+      if (lastValue == null || lastText?.textContent == null) {
+        return;
+      }
+
+      if (lastText.textContent.length === lastValue.length) {
+        document
+          .querySelector(".terminal-aside")
+          ?.setAttribute("style", "visibility: visible");
+
+        clearInterval(i3);
+
+        return;
+      }
+    }, 500);
   })();
 </script>
