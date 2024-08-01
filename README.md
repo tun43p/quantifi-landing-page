@@ -1,54 +1,44 @@
-# Astro Starter Kit: Basics
+# QuantiFi Landing Page
 
-```sh
-npm create astro@latest -- --template basics
-```
+## Table of contents
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+- [QuantiFi Landing Page](#quantifi-landing-page)
+  - [Table of contents](#table-of-contents)
+  - [Getting started](#getting-started)
+    - [Download repository](#download-repository)
+    - [Install dependencies](#install-dependencies)
+    - [Run in development mode](#run-in-development-mode)
+    - [Preview in production mode](#preview-in-production-mode)
+    - [Build for production](#build-for-production)
+  - [Authors](#authors)
+  - [License](#license)
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Getting started
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+### Download repository
 
-## 🚀 Project Structure
+To download this project, please do: `git clone https://github.com/tun43p/quantifi-landing-page.git`.
 
-Inside of your Astro project, you'll see the following folders and files:
+### Install dependencies
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+To install this project, please do: `npm install`.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Run in development mode
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+To run this project in development mode, please do: `npm run dev` or `npm run start`.
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Preview in production mode
 
-## 🧞 Commands
+To preview this project in production mode, please do: `npm run preview`.
 
-All commands are run from the root of the project, from a terminal:
+### Build for production
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+To build this project for production, please do: `npm run build`.
 
-## 👀 Want to learn more?
+## Authors
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- **tun43p** - _Initial work_ - [tun43p](https://github.com/tun43p).
+
+## License
+
+This project is licensed under the MIT License, see the [LICENSE](LICENSE) file for details.
