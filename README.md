@@ -1,6 +1,6 @@
 # QuantiFi Landing Page
 
-![QuantiFi Landing Page](./docs/demo.png)
+![QuantiFi Landing Page](./.docs/demo.png)
 
 ## Table of contents
 
