@@ -34,8 +34,8 @@ const { contents } = Astro.props;
   .terminal-aside {
     height: 18rem;
     margin-bottom: 2rem;
-    /* TODO: Display none? */
-    visibility: hidden;
+    opacity: 0;
+    transition: 2s;
   }
 
   .terminal-line {
@@ -145,7 +145,7 @@ const { contents } = Astro.props;
       if (lastText.textContent.length === lastValue.length) {
         document
           .querySelector(".terminal-aside")
-          ?.setAttribute("style", "visibility: visible");
+          ?.setAttribute("style", "opacity: 1");
 
         clearInterval(i3);
 
