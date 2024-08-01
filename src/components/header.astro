@@ -1,0 +1,54 @@
+---
+import Config from "@config";
+---
+
+<header>
+  <div class="date-time">
+    <p id="date">Wednesday 18 July, 2024</p>
+    <p id="time">20:31:02 UTC</p>
+  </div>
+  <nav>
+    <a href={Config.twitter} target="_blank">JOIN US</a>
+  </nav>
+</header>
+
+<style>
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 2rem;
+  }
+
+  .date-time {
+    font-size: 0.75rem;
+  }
+</style>
+
+<script>
+  (() => {
+    const date = document.getElementById("date");
+    const hour = document.getElementById("time");
+
+    if (!date || !hour) return;
+
+    date.textContent = new Date()
+      .toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+      .replace(",", "");
+
+    setInterval(() => {
+      hour.textContent =
+        new Date().toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        }) + " UTC";
+    }, 1000);
+  })();
+</script>
