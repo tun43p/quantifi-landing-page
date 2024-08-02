@@ -3,6 +3,7 @@ import Config from "@config";
 
 interface Props {
   lines: ITerminalLine[];
+  symbol: string;
 }
 
 const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
@@ -11,7 +12,7 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
   useEffect(() => {
     const parsedLines = props.lines.map((line) => ({
       ...line,
-      content: `${Config.symbol} ${line.content}`,
+      content: `${props.symbol} ${line.content}`,
     }));
 
     parsedLines.forEach((line, index) => {
