@@ -1,0 +1,13 @@
+section {
+  padding: 2rem 0;
+}
+
+section canvas {
+  margin: 1rem auto;
+  width: 300px;
+}
+
+section div {
+  display: flex;
+  align-items: center;
+}

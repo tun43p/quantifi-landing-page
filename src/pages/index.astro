@@ -1,32 +1,54 @@
 ---
-import Config from "@config";
+import Terminal from "@components/Terminal";
 import Layout from "@layouts/Layout.astro";
-import Terminal from "@components/Terminal.astro";
 ---
 
 <Layout title="TBA">
   <main>
     <Terminal
-      contents={[
-        { text: `>> Project.start('${Config.title}');` },
-        { text: ">> Dev status: In progress", symbol: "." },
-        { text: ">> Launch date: TBA", symbol: "/" },
+      client:load
+      lines={[
+        {
+          content: "Loading project",
+          symbol: ".",
+          type: "text",
+        },
+        {
+          content: "Project.start('QuantiFi');",
+          type: "text",
+        },
+        {
+          content: "http://localhost:4321/logo.png",
+          type: "image",
+        },
+        {
+          content: "Dev status: In progress",
+          type: "text",
+          symbol: ".",
+        },
+        {
+          content: "Launch date: TBA",
+          type: "text",
+          symbol: "/",
+        },
+        {
+          content: "",
+          type: "text",
+        },
+        {
+          content: "Join us -",
+          type: "link",
+          href: "https://x.com/quantifi_xyz",
+        },
       ]}
-    >
-      <img src="/logo.svg" alt={`${Config.title} logo`} />
-    </Terminal>
+      symbol=">>"
+    />
   </main>
 </Layout>
 
 <style>
   main {
+    width: 100%;
     height: calc(100vh - 8rem);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  img {
-    margin-bottom: 4rem;
   }
 </style>

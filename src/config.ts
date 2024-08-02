@@ -3,6 +3,18 @@ export default class Config {
     return "QuantiFi";
   }
 
+  static get seed(): number {
+    return 10;
+  }
+
+  static get speed(): number {
+    return 25;
+  }
+
+  static get delay(): number {
+    return 250;
+  }
+
   static get twitter(): string {
     return "https://x.com/quantifi_xyz";
   }

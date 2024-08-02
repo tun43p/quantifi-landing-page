@@ -1,6 +1,9 @@
 /// <reference types="astro/client" />
 
-type TerminalContent = {
-  text: string;
+interface ITerminalLine {
+  content: string;
+  type: "image" | "link" | "text" = "text";
   symbol?: string;
-};
+  href?: string;
+  finished?: boolean;
+}
