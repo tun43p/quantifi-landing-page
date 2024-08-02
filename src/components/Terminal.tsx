@@ -67,7 +67,7 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
 
           let row = 0;
 
-          const revealImage = () => {
+          const reveal = () => {
             const interval = setInterval(() => {
               if (index != 0 && !lines[index - 1]?.finished) return;
 
@@ -88,7 +88,7 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
 
                 row += speed;
 
-                requestAnimationFrame(revealImage);
+                requestAnimationFrame(reveal);
               } else {
                 line.finished = true;
 
@@ -97,7 +97,7 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
             }, speed);
           };
 
-          requestAnimationFrame(revealImage);
+          requestAnimationFrame(reveal);
         };
       } else {
         const i1 = setInterval(() => {
