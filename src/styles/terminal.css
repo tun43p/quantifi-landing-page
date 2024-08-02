@@ -1,0 +1,20 @@
+section {
+  border: 2px solid #202020;
+  padding: 2rem;
+  margin: 2rem 0;
+  width: 100%;
+  height: calc(100% - 4rem);
+}
+
+section canvas {
+  margin: 1rem auto;
+}
+
+section div {
+  display: "flex";
+  align-items: "center";
+}
+
+section div p {
+  text-shadow: 0 0 60px orange, 0 20px 60px orange;
+}

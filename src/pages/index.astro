@@ -9,6 +9,10 @@ import Layout from "@layouts/Layout.astro";
       client:load
       lines={[
         {
+          content: "Loading project",
+          symbol: ".",
+        },
+        {
           content: "Project.start('QuantiFi');",
         },
         {
@@ -23,6 +27,13 @@ import Layout from "@layouts/Layout.astro";
           content: "Launch date: TBA",
           symbol: "/",
         },
+        {
+          content: "",
+        },
+        {
+          // TODO: Add link
+          content: "Join us",
+        },
       ]}
       symbol=">>"
     />
@@ -31,9 +42,10 @@ import Layout from "@layouts/Layout.astro";
 
 <style>
   main {
+    width: 100%;
     height: calc(100vh - 8rem);
     display: flex;
-    align-items: center;
-    justify-content: center;
+    /* align-items: center; */
+    /* justify-content: center; */
   }
 </style>
