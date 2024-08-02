@@ -1,11 +1,26 @@
 ---
-import Terminal from "@components/Terminal";
+import TerminalLines from "@components/Terminal";
 import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout title="TBA">
   <main>
-    <Terminal client:load />
+    <TerminalLines
+      client:load
+      lines={[
+        {
+          content: "Project.start('QuantiFi');",
+        },
+        {
+          content: "Dev status: In progress",
+          symbol: ".",
+        },
+        {
+          content: "Launch date: TBA",
+          symbol: "/",
+        },
+      ]}
+    />
   </main>
 </Layout>
 

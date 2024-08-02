@@ -3,24 +3,21 @@ export default class Config {
     return "QuantiFi";
   }
 
-  static get lines(): TerminalLine[] {
-    return [
-      {
-        content: "Project.start('QuantiFi');",
-        colorize: "QuantiFi",
-      },
-      {
-        content: "Dev status: In progress",
-        colorize: "In progress",
-        symbol: ".",
-      },
-      {
-        content: "Launch date: TBA",
-        colorize: "TBA",
-        symbol: "/",
-      },
-    ];
-  }
+  // static get lines(): TerminalLine[] {
+  //   return [
+  //     {
+  //       content: "Project.start('QuantiFi');",
+  //     },
+  //     {
+  //       content: "Dev status: In progress",
+  //       symbol: ".",
+  //     },
+  //     {
+  //       content: "Launch date: TBA",
+  //       symbol: "/",
+  //     },
+  //   ];
+  // }
 
   static get symbol(): string {
     return ">>";

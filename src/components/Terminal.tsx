@@ -1,17 +1,20 @@
 import React, { useEffect, useRef } from "react";
-
 import Config from "@config";
 
-const Terminal: React.FC = (): JSX.Element => {
+interface Props {
+  lines: ITerminalLine[];
+}
+
+const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
   const terminalRefs = useRef<(HTMLParagraphElement | null)[]>([]);
 
   useEffect(() => {
-    const lines = Config.lines.map((line) => ({
+    const parsedLines = props.lines.map((line) => ({
       ...line,
       content: `${Config.symbol} ${line.content}`,
     }));
 
-    lines.forEach((line, index) => {
+    parsedLines.forEach((line, index) => {
       const ref = terminalRefs.current[index];
       if (!ref) return;
 
@@ -41,7 +44,7 @@ const Terminal: React.FC = (): JSX.Element => {
 
       const i1 = setInterval(() => {
         const previousText = terminalRefs.current[index - 1];
-        const previousValue = lines[index - 1]?.content;
+        const previousValue = parsedLines[index - 1]?.content;
 
         if (previousText?.textContent?.length === previousValue?.length) {
           clearInterval(i1);
@@ -84,10 +87,21 @@ const Terminal: React.FC = (): JSX.Element => {
   }, [Config, terminalRefs]);
 
   return (
-    <section>
-      {Config.lines.map((_, index) => (
-        <div key={index} style={{ display: "flex", alignItems: "center" }}>
-          <p ref={(ref) => (terminalRefs.current[index] = ref)} />
+    <section className="terminal">
+      {props.lines.map((_, index) => (
+        <div
+          className="terminal-line"
+          key={index}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textShadow: "0 0 60px orange, 0 0 60px orange",
+          }}
+        >
+          <p
+            className="terminal-line-text"
+            ref={(ref) => (terminalRefs.current[index] = ref)}
+          />
         </div>
       ))}
     </section>

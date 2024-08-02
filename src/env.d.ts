@@ -1,12 +1,6 @@
 /// <reference types="astro/client" />
 
-type TerminalContent = {
-  text: string;
-  symbol?: string;
-};
-
-type TerminalLine = {
+interface ITerminalLine {
   content: string;
-  colorize?: string;
   symbol?: string;
-};
+}
