@@ -8,7 +8,7 @@ export default class Config {
   }
 
   static get speed(): number {
-    return 50;
+    return 25;
   }
 
   static get delay(): number {

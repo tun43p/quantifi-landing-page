@@ -3,4 +3,6 @@
 interface ITerminalLine {
   content: string;
   symbol?: string;
+  image?: boolean;
+  finished?: boolean;
 }

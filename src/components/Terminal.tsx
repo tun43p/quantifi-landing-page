@@ -7,17 +7,18 @@ interface Props {
 }
 
 const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
-  const terminalRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+  const canvasRefs = useRef<(HTMLCanvasElement | null)[]>([]);
+  const paragraphRefs = useRef<(HTMLParagraphElement | null)[]>([]);
 
   useEffect(() => {
-    const parsedLines = props.lines.map((line) => ({
+    const lines = props.lines.map((line) => ({
       ...line,
-      content: `${props.symbol} ${line.content}`,
+      content: line.image ? line.content : `${props.symbol} ${line.content}`,
     }));
 
-    parsedLines.forEach((line, index) => {
-      const ref = terminalRefs.current[index];
-      if (!ref) return;
+    lines.forEach((line, index) => {
+      const canvas = canvasRefs.current[index];
+      const paragraph = paragraphRefs.current[index];
 
       let i = 0;
 
@@ -25,8 +26,10 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
       let speed = Config.speed;
 
       const type = () => {
+        if (!paragraph) return;
+
         if (i < line.content.length) {
-          ref.textContent += line.content.charAt(i);
+          paragraph.textContent += line.content.charAt(i);
           i++;
 
           seed = Math.floor(Math.random() * Config.seed);
@@ -35,6 +38,8 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
           if (seed === Config.seed / 2) speed = Config.delay;
 
           setTimeout(type, speed);
+        } else {
+          line.finished = true;
         }
       };
 
@@ -43,23 +48,75 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
         return;
       }
 
-      const i1 = setInterval(() => {
-        const previousText = terminalRefs.current[index - 1];
-        const previousValue = parsedLines[index - 1]?.content;
+      if (line.image) {
+        if (!canvas) return;
 
-        if (previousText?.textContent?.length === previousValue?.length) {
+        const context = canvas.getContext("2d");
+        if (!context) return;
+
+        const image = new Image();
+
+        image.src = line.content;
+
+        image.onload = () => {
+          canvas.width = image.width;
+          canvas.height = image.height;
+
+          let row = 0;
+
+          const revealImage = () => {
+            const interval = setInterval(() => {
+              if (!lines[index - 1]?.finished) return;
+
+              clearInterval(interval);
+
+              if (row < image.height) {
+                context.drawImage(
+                  image,
+                  0,
+                  row,
+                  image.width,
+                  speed,
+                  0,
+                  row,
+                  image.width,
+                  speed
+                );
+
+                row += speed;
+
+                requestAnimationFrame(revealImage);
+              } else {
+                line.finished = true;
+
+                return;
+              }
+            }, speed);
+          };
+
+          requestAnimationFrame(revealImage);
+        };
+      }
+
+      const i1 = setInterval(() => {
+        if (!line.image && lines[index - 1]?.finished) {
           clearInterval(i1);
           type();
+
           return;
         }
       }, speed);
 
       if (line.symbol) {
+        if (!paragraph) return;
+
         const span = document.createElement("span");
-        ref.parentElement?.appendChild(span);
+        paragraph.parentElement?.appendChild(span);
 
         const i2 = setInterval(() => {
-          if (ref.textContent?.length === line.content.length) {
+          if (line.finished) {
+            clearInterval(i2);
+
             setInterval(() => {
               if (line.symbol === ".") {
                 if (span.textContent === "...") {
@@ -79,32 +136,38 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
                 }
               }
             }, Config.delay * 2);
-
-            clearInterval(i2);
           }
         });
       }
     });
-  }, [Config, terminalRefs]);
+  }, [Config, canvasRefs, paragraphRefs, props]);
 
   return (
     <section className="terminal">
-      {props.lines.map((_, index) => (
-        <div
-          className="terminal-line"
-          key={index}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            textShadow: "0 0 60px orange, 0 0 60px orange",
-          }}
-        >
-          <p
-            className="terminal-line-text"
-            ref={(ref) => (terminalRefs.current[index] = ref)}
-          />
-        </div>
-      ))}
+      {props.lines.map((line, index) =>
+        line.image ? (
+          <canvas
+            key={index}
+            ref={(ref) => (canvasRefs.current[index] = ref)}
+            style={{ width: "200px" }}
+          ></canvas>
+        ) : (
+          <div
+            className="terminal-line"
+            key={index}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              textShadow: "0 0 60px orange, 0 0 60px orange",
+            }}
+          >
+            <p
+              className="terminal-line-text"
+              ref={(ref) => (paragraphRefs.current[index] = ref)}
+            />
+          </div>
+        )
+      )}
     </section>
   );
 };
