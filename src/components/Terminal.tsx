@@ -10,7 +10,6 @@ interface Props {
 
 const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
   const canvasRefs = useRef<(HTMLCanvasElement | null)[]>([]);
-  // TODO: Find another name
   const paragraphRefs = useRef<
     (HTMLParagraphElement | HTMLAnchorElement | null)[]
   >([]);
@@ -37,7 +36,7 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
         if (!paragraph) return;
 
         if (i < line.content.length) {
-          paragraph.textContent += line.content.charAt(i);
+          paragraph.innerHTML += line.content.charAt(i);
           i++;
 
           seed = Math.floor(Math.random() * Config.seed);
