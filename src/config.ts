@@ -3,26 +3,6 @@ export default class Config {
     return "QuantiFi";
   }
 
-  // static get lines(): TerminalLine[] {
-  //   return [
-  //     {
-  //       content: "Project.start('QuantiFi');",
-  //     },
-  //     {
-  //       content: "Dev status: In progress",
-  //       symbol: ".",
-  //     },
-  //     {
-  //       content: "Launch date: TBA",
-  //       symbol: "/",
-  //     },
-  //   ];
-  // }
-
-  static get symbol(): string {
-    return ">>";
-  }
-
   static get seed(): number {
     return 10;
   }

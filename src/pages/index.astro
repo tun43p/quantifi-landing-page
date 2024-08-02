@@ -1,11 +1,11 @@
 ---
-import TerminalLines from "@components/Terminal";
+import Terminal from "@components/Terminal";
 import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout title="TBA">
   <main>
-    <TerminalLines
+    <Terminal
       client:load
       lines={[
         {
@@ -20,6 +20,7 @@ import Layout from "@layouts/Layout.astro";
           symbol: "/",
         },
       ]}
+      symbol=">>"
     />
   </main>
 </Layout>
