@@ -2,7 +2,8 @@
 
 interface ITerminalLine {
   content: string;
+  type: "image" | "link" | "text" = "text";
   symbol?: string;
-  image?: boolean;
+  href?: string;
   finished?: boolean;
 }

@@ -11,28 +11,34 @@ import Layout from "@layouts/Layout.astro";
         {
           content: "Loading project",
           symbol: ".",
+          type: "text",
         },
         {
           content: "Project.start('QuantiFi');",
+          type: "text",
         },
         {
           content: "http://localhost:4321/logo.png",
-          image: true,
+          type: "image",
         },
         {
           content: "Dev status: In progress",
+          type: "text",
           symbol: ".",
         },
         {
           content: "Launch date: TBA",
+          type: "text",
           symbol: "/",
         },
         {
           content: "",
+          type: "text",
         },
         {
-          // TODO: Add link
-          content: "Join us",
+          content: "Join us -",
+          type: "link",
+          href: "https://x.com/quantifi_xyz",
         },
       ]}
       symbol=">>"

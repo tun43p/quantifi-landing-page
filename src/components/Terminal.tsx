@@ -10,12 +10,18 @@ interface Props {
 
 const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
   const canvasRefs = useRef<(HTMLCanvasElement | null)[]>([]);
-  const paragraphRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+  // TODO: Find another name
+  const paragraphRefs = useRef<
+    (HTMLParagraphElement | HTMLAnchorElement | null)[]
+  >([]);
 
   useEffect(() => {
     const lines = props.lines.map((line) => ({
       ...line,
-      content: line.image ? line.content : `${props.symbol} ${line.content}`,
+      content:
+        line.type === "image"
+          ? line.content
+          : `${props.symbol} ${line.content}`,
     }));
 
     lines.forEach((line, index) => {
@@ -45,7 +51,7 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
         }
       };
 
-      if (line.image) {
+      if (line.type === "image") {
         if (!canvas) return;
 
         const context = canvas.getContext("2d");
@@ -138,25 +144,24 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
   }, [Config, canvasRefs, paragraphRefs, props]);
 
   return (
-    <section className="terminal">
+    <section>
       {props.lines.map((line, index) =>
-        line.image ? (
+        line.type === "image" ? (
           <canvas
             key={index}
             ref={(ref) => (canvasRefs.current[index] = ref)}
-            style={{ width: "300px" }}
           ></canvas>
         ) : (
-          <div
-            className="terminal-line"
-            key={index}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              textShadow: "0 0 60px orange, 0 0 60px orange",
-            }}
-          >
-            <p ref={(ref) => (paragraphRefs.current[index] = ref)} />
+          <div key={index}>
+            {line.type === "link" ? (
+              <a
+                ref={(ref) => (paragraphRefs.current[index] = ref)}
+                href={line.href}
+                target="_blank"
+              />
+            ) : (
+              <p ref={(ref) => (paragraphRefs.current[index] = ref)} />
+            )}
           </div>
         )
       )}
