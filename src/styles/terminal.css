@@ -27,6 +27,10 @@ section div.center {
   margin-top: 2rem;
 }
 
+.command {
+  margin: 1rem 0;
+}
+
 .blue {
   color: #83d9ca;
 }

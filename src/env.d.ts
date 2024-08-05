@@ -5,6 +5,7 @@ interface ITerminalLine {
   type: "image" | "link" | "text" = "text";
   symbol?: string;
   href?: string;
+  command?: boolean;
   finished?: boolean;
   center?: boolean;
   color?: {

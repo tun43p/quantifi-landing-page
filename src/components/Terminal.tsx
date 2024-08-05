@@ -39,10 +39,10 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
   };
 
   useEffect(() => {
-    const lines = props.lines.map((line, index) => ({
+    const lines = props.lines.map((line) => ({
       ...line,
       content:
-        index === 0 || line.type === "image" || line.center
+        line.command || line.center || line.type === "image"
           ? line.content
           : `${props.symbol} ${line.content}`,
     }));
@@ -63,6 +63,7 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
             currentContent,
             line.color || {}
           );
+
           setRenderedContent((prevContent) => {
             const newContent = [...prevContent];
             newContent[index] = parsedContent;
@@ -183,7 +184,10 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
             ref={(ref) => (canvasRefs.current[index] = ref)}
           ></canvas>
         ) : (
-          <div key={index} className={line.center ? "center" : ""}>
+          <div
+            key={index}
+            className={line.center ? "center" : line.command ? "command" : ""}
+          >
             {line.type === "link" ? (
               <a
                 ref={(ref) => (paragraphRefs.current[index] = ref)}
@@ -199,7 +203,7 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
                 dangerouslySetInnerHTML={{
                   __html: renderedContent[index] || "",
                 }}
-              />
+              ></p>
             )}
           </div>
         )

@@ -1,12 +1,14 @@
 ---
-import Config from "@config";
 import Terminal from "@components/Terminal";
 import Layout from "@layouts/Layout.astro";
 
-const space: ITerminalLine = {
-  content: "",
-  type: "text",
-};
+function formatDate(date: Date) {
+  return new Date(date).toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+}
 ---
 
 <Layout title="TBA">
@@ -15,54 +17,62 @@ const space: ITerminalLine = {
       client:load
       lines={[
         {
-          content: "dev@QuantiFi ~> ./start.sh",
+          command: true,
+          content: "dev@QuantiFi:~ ./init.sh",
           type: "text",
           color: {
             blue: ["dev"],
             yellow: ["QuantiFi"],
           },
         },
-        space,
-        space,
         {
-          content: `Project.start('${Config.title}');`,
+          content: 'Project.init("QuantiFi")',
           type: "text",
           color: {
-            blue: ["start"],
+            blue: ["init"],
             yellow: ["QuantiFi"],
           },
         },
         { content: "/logo.png", type: "image" },
         {
-          content: "Dev.status()",
+          command: true,
+          content: 'dev@QuantiFi:~ ./infos.sh -p="QuantiFi"',
+          type: "text",
+          color: {
+            blue: ["dev"],
+            yellow: ["QuantiFi"],
+          },
+        },
+        {
+          content: "Connecting on-chain servers",
+          type: "text",
+          symbol: ".",
+        },
+        {
+          content: "Project.status()",
           type: "text",
           color: {
             blue: ["status"],
           },
         },
         {
-          content: "[1] In progress",
+          content: `[${formatDate(new Date())}] Initialized.`,
           type: "text",
-          symbol: ".",
-          color: { blue: ["1"] },
         },
-        space,
-        space,
         {
-          content: "Launch.date()",
+          content: "Project.launch()",
           type: "text",
           color: {
             blue: ["date"],
           },
         },
         {
-          content: "[1] TBA",
+          content: `[${formatDate(new Date())}] TBA`,
           type: "text",
           symbol: "/",
-          color: { blue: ["1"] },
         },
         {
-          content: "JOIN US -",
+          content: "JOIN US",
           type: "link",
           href: "https://x.com/quantifi_xyz",
           center: true,
