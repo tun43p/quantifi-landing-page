@@ -39,10 +39,10 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
   };
 
   useEffect(() => {
-    const lines = props.lines.map((line) => ({
+    const lines = props.lines.map((line, index) => ({
       ...line,
       content:
-        line.type === "image" || line.center
+        index === 0 || line.type === "image" || line.center
           ? line.content
           : `${props.symbol} ${line.content}`,
     }));
