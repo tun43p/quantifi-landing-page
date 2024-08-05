@@ -1,13 +1,10 @@
 section {
   display: grid;
-  color: #f9e4ad;
   width: 100%;
-  height: 100%;
   padding: 2rem 0;
   margin: 0 auto;
   justify-content: center;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
+  align-items: start;
 }
 
 section canvas {
@@ -18,6 +15,7 @@ section canvas {
 section div {
   display: flex;
   align-items: center;
+  justify-content: start;
 }
 
 section div.center {
@@ -26,6 +24,13 @@ section div.center {
   align-items: center;
   justify-content: center;
   text-align: center;
-  /* TODO: Remove margin */
-  margin: 4rem auto;
+  margin-top: 2rem;
+}
+
+.blue {
+  color: #83d9ca;
+}
+
+.yellow {
+  color: #f9e4ad;
 }

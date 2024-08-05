@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Config from "@config";
-
 import "@styles/terminal.css";
 
 interface Props {
@@ -13,6 +12,31 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
   const paragraphRefs = useRef<
     (HTMLParagraphElement | HTMLAnchorElement | null)[]
   >([]);
+
+  const [renderedContent, setRenderedContent] = useState<string[]>(
+    Array(props.lines.length).fill("")
+  );
+
+  const wrapLettersWithSpan = (
+    content: string,
+    colors: { [key: string]: string[] | undefined }
+  ) => {
+    let parsedContent = content;
+
+    Object.entries(colors).forEach(([color, words]) => {
+      words?.forEach((word) => {
+        const regex = new RegExp(`(${word})`, "g");
+        parsedContent = parsedContent.replace(regex, (match) => {
+          return match
+            .split("")
+            .map((char) => `<span class="${color}">${char}</span>`)
+            .join("");
+        });
+      });
+    });
+
+    return parsedContent;
+  };
 
   useEffect(() => {
     const lines = props.lines.map((line) => ({
@@ -33,10 +57,18 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
       let speed = Config.speed;
 
       const type = () => {
-        if (!paragraph) return;
-
         if (i < line.content.length) {
-          paragraph.innerHTML += line.content.charAt(i);
+          const currentContent = line.content.slice(0, i + 1);
+          const parsedContent = wrapLettersWithSpan(
+            currentContent,
+            line.color || {}
+          );
+          setRenderedContent((prevContent) => {
+            const newContent = [...prevContent];
+            newContent[index] = parsedContent;
+            return newContent;
+          });
+
           i++;
 
           seed = Math.floor(Math.random() * Config.seed);
@@ -157,9 +189,17 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
                 ref={(ref) => (paragraphRefs.current[index] = ref)}
                 href={line.href}
                 target="_blank"
+                dangerouslySetInnerHTML={{
+                  __html: renderedContent[index] || "",
+                }}
               />
             ) : (
-              <p ref={(ref) => (paragraphRefs.current[index] = ref)} />
+              <p
+                ref={(ref) => (paragraphRefs.current[index] = ref)}
+                dangerouslySetInnerHTML={{
+                  __html: renderedContent[index] || "",
+                }}
+              />
             )}
           </div>
         )

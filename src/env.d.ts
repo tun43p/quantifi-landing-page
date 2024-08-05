@@ -7,4 +7,7 @@ interface ITerminalLine {
   href?: string;
   finished?: boolean;
   center?: boolean;
+  color?: {
+    [key: string]: string[] | undefined;
+  };
 }

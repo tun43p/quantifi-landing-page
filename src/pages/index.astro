@@ -14,24 +14,52 @@ const space: ITerminalLine = {
     <Terminal
       client:load
       lines={[
-        { content: "dev@QuantiFi ~> ./start.sh", type: "text" },
-        space,
-        space,
-        { content: `Project.start('${Config.title}');`, type: "text" },
-        { content: "/logo.png", type: "image" },
-        { content: "Dev.status()", type: "text" },
-        { content: "[1] In progress", type: "text", symbol: "." },
-        space,
-        space,
-        { content: "Launch.date()", type: "text" },
-        { content: "[1] TBA", type: "text", symbol: "/" },
-        space,
-        space,
-        // TODO: Choose one of the following:
         {
-          content: "Join us -",
-          type: "link",
-          href: "https://x.com/quantifi_xyz",
+          content: "dev@QuantiFi ~> ./start.sh",
+          type: "text",
+          color: {
+            blue: ["dev"],
+            yellow: ["QuantiFi"],
+          },
+        },
+        space,
+        space,
+        {
+          content: `Project.start('${Config.title}');`,
+          type: "text",
+          color: {
+            blue: ["start"],
+            yellow: ["QuantiFi"],
+          },
+        },
+        { content: "/logo.png", type: "image" },
+        {
+          content: "Dev.status()",
+          type: "text",
+          color: {
+            blue: ["status"],
+          },
+        },
+        {
+          content: "[1] In progress",
+          type: "text",
+          symbol: ".",
+          color: { blue: ["1"] },
+        },
+        space,
+        space,
+        {
+          content: "Launch.date()",
+          type: "text",
+          color: {
+            blue: ["date"],
+          },
+        },
+        {
+          content: "[1] TBA",
+          type: "text",
+          symbol: "/",
+          color: { blue: ["1"] },
         },
         {
           content: "JOIN US -",
