@@ -18,7 +18,7 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
     const lines = props.lines.map((line) => ({
       ...line,
       content:
-        line.type === "image"
+        line.type === "image" || line.center
           ? line.content
           : `${props.symbol} ${line.content}`,
     }));
@@ -151,7 +151,7 @@ const Terminal: React.FC<Props> = (props: Props): JSX.Element => {
             ref={(ref) => (canvasRefs.current[index] = ref)}
           ></canvas>
         ) : (
-          <div key={index}>
+          <div key={index} className={line.center ? "center" : ""}>
             {line.type === "link" ? (
               <a
                 ref={(ref) => (paragraphRefs.current[index] = ref)}

@@ -2,6 +2,11 @@
 import Config from "@config";
 import Terminal from "@components/Terminal";
 import Layout from "@layouts/Layout.astro";
+
+const space: ITerminalLine = {
+  content: "",
+  type: "text",
+};
 ---
 
 <Layout title="TBA">
@@ -9,37 +14,30 @@ import Layout from "@layouts/Layout.astro";
     <Terminal
       client:load
       lines={[
-        {
-          content: "Loading project",
-          symbol: ".",
-          type: "text",
-        },
-        {
-          content: `Project.start('${Config.title}');`,
-          type: "text",
-        },
-        {
-          content: "/logo.png",
-          type: "image",
-        },
-        {
-          content: "Dev status: In progress",
-          type: "text",
-          symbol: ".",
-        },
-        {
-          content: "Launch date: TBA",
-          type: "text",
-          symbol: "/",
-        },
-        {
-          content: "",
-          type: "text",
-        },
+        { content: "dev@QuantiFi ~> ./start.sh", type: "text" },
+        space,
+        space,
+        { content: `Project.start('${Config.title}');`, type: "text" },
+        { content: "/logo.png", type: "image" },
+        { content: "Dev.status()", type: "text" },
+        { content: "[1] In progress", type: "text", symbol: "." },
+        space,
+        space,
+        { content: "Launch.date()", type: "text" },
+        { content: "[1] TBA", type: "text", symbol: "/" },
+        space,
+        space,
+        // TODO: Choose one of the following:
         {
           content: "Join us -",
           type: "link",
           href: "https://x.com/quantifi_xyz",
+        },
+        {
+          content: "JOIN US -",
+          type: "link",
+          href: "https://x.com/quantifi_xyz",
+          center: true,
         },
       ]}
       symbol=">>"

@@ -6,4 +6,5 @@ interface ITerminalLine {
   symbol?: string;
   href?: string;
   finished?: boolean;
+  center?: boolean;
 }
